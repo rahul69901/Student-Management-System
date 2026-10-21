@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Management System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+
+<h1>Student Management System</h1>
+
+<h2>Add Student</h2>
+
+<form action="/add" method="POST" onsubmit="return checkForm(this)">
+    <input type="text" name="name" placeholder="Student Name">
+    <input type="number" name="age" placeholder="Age" min="1">
+    <input type="text" name="roll_no" placeholder="Roll Number">
+    <input type="text" name="course" placeholder="Course">
+
+    <button type="submit">Add Student</button>
+</form>
+
+<h2>Student List</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Roll No</th>
+            <th>Course</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for s in students %}
+        <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.name }}</td>
+            <td>{{ s.age }}</td>
+            <td>{{ s.roll_no }}</td>
+            <td>{{ s.course }}</td>
+            <td>
+                <a href="/edit/{{ s.id }}">Edit</a>
+
+                <a href="/delete/{{ s.id }}"
+                   onclick="return confirmDelete()">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>
